@@ -28,6 +28,7 @@ jobs:
 
       - name: Build with Maven (skip tests)
         run: mvn clean compile -DskipTests
+        working-directory: ./backend
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/jobportal_db
           SPRING_DATASOURCE_USERNAME: aashish
