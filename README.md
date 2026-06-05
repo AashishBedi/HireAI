@@ -1,4 +1,3 @@
-```markdown
 # HireAI — AI-Powered Job Portal
 
 > A full-stack job portal where AI matches candidates to jobs using resume analysis and semantic similarity scoring.
@@ -15,27 +14,25 @@ HireAI is a production-grade job portal built with a Spring Boot backend, React 
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────┐
-│                   React Frontend                     │
-│         (Job Seeker UI + Recruiter Dashboard)        │
-└──────────────────────┬──────────────────────────────┘
-                       │ REST API
-┌──────────────────────▼──────────────────────────────┐
-│              Spring Boot Core API (Port 8080)        │
-│   Auth │ Jobs │ Applications │ Resume │ Email        │
-└──────┬───────────────┬────────────────┬─────────────┘
-       │               │                │
-┌──────▼─────┐  ┌──────▼──────┐  ┌─────▼──────────┐
-│ PostgreSQL │  │    Redis     │  │   JavaMailSender│
-│  (main DB) │  │   (cache)   │  │  (Gmail SMTP)  │
-└────────────┘  └─────────────┘  └────────────────┘
-                       │
-┌──────────────────────▼──────────────────────────────┐
-│              FastAPI AI Sidecar (Port 8000)          │
-│     Resume Parser │ JD Matcher │ Skill Extractor     │
-└─────────────────────────────────────────────────────┘
-```
+    ┌─────────────────────────────────────────────────────┐
+    │                   React Frontend                     │
+    │         (Job Seeker UI + Recruiter Dashboard)        │
+    └──────────────────────┬──────────────────────────────┘
+                           │ REST API
+    ┌──────────────────────▼──────────────────────────────┐
+    │              Spring Boot Core API (Port 8080)        │
+    │   Auth │ Jobs │ Applications │ Resume │ Email        │
+    └──────┬───────────────┬────────────────┬─────────────┘
+           │               │                │
+    ┌──────▼─────┐  ┌──────▼──────┐  ┌─────▼──────────┐
+    │ PostgreSQL │  │    Redis     │  │ JavaMailSender  │
+    │  (main DB) │  │   (cache)   │  │  (Gmail SMTP)  │
+    └────────────┘  └─────────────┘  └────────────────┘
+                           │
+    ┌──────────────────────▼──────────────────────────────┐
+    │              FastAPI AI Sidecar (Port 8000)          │
+    │     Resume Parser │ JD Matcher │ Skill Extractor     │
+    └─────────────────────────────────────────────────────┘
 
 ---
 
@@ -67,45 +64,42 @@ HireAI is a production-grade job portal built with a Spring Boot backend, React 
 
 ### Recruiter
 - Post jobs with required skills, location, and salary
-- View all applicants ranked by AI match score (descending)
+- View all applicants ranked by AI match score descending
 - See each applicant's name, email, match score, and skill gaps
-- Update application status (APPLIED → REVIEWED → INTERVIEW → ACCEPTED/REJECTED)
+- Update application status: APPLIED → REVIEWED → INTERVIEW → ACCEPTED/REJECTED
 - Applicant receives email notification on every status change
 
 ---
 
 ## Project Structure
 
-```
-HireAI/
-├── backend/                    # Spring Boot API
-│   ├── src/main/java/
-│   │   └── com/aashish/jobportal/
-│   │       ├── config/         # Redis, WebClient config
-│   │       ├── controller/     # REST controllers
-│   │       ├── dto/            # Request/Response DTOs
-│   │       ├── entity/         # JPA entities
-│   │       ├── enums/          # Role, JobStatus, ApplicationStatus
-│   │       ├── exception/      # Global exception handler
-│   │       ├── repository/     # Spring Data JPA repositories
-│   │       ├── security/       # JWT filter, SecurityConfig
-│   │       └── service/        # Business logic
-│   ├── docker-compose.yml      # PostgreSQL + Redis
-│   └── pom.xml
-│
-├── frontend/                   # React 18 app
-│   └── src/
-│       ├── api/                # Axios API modules
-│       ├── components/         # Reusable UI components
-│       ├── context/            # Auth context
-│       └── pages/              # Route pages
-│
-├── ai_service/                 # FastAPI AI sidecar
-│   ├── main.py                 # Resume parser + JD matcher
-│   └── requirements.txt
-│
-└── .github/workflows/ci.yml    # GitHub Actions CI
-```
+    HireAI/
+    ├── backend/                    # Spring Boot API
+    │   ├── src/main/java/com/aashish/jobportal/
+    │   │   ├── config/             # Redis, WebClient config
+    │   │   ├── controller/         # REST controllers
+    │   │   ├── dto/                # Request/Response DTOs
+    │   │   ├── entity/             # JPA entities
+    │   │   ├── enums/              # Role, JobStatus, ApplicationStatus
+    │   │   ├── exception/          # Global exception handler
+    │   │   ├── repository/         # Spring Data JPA repositories
+    │   │   ├── security/           # JWT filter, SecurityConfig
+    │   │   └── service/            # Business logic
+    │   ├── docker-compose.yml      # PostgreSQL + Redis
+    │   └── pom.xml
+    │
+    ├── frontend/                   # React 18 app
+    │   └── src/
+    │       ├── api/                # Axios API modules
+    │       ├── components/         # Reusable UI components
+    │       ├── context/            # Auth context
+    │       └── pages/              # Route pages
+    │
+    ├── ai_service/                 # FastAPI AI sidecar
+    │   ├── main.py                 # Resume parser + JD matcher
+    │   └── requirements.txt
+    │
+    └── .github/workflows/ci.yml    # GitHub Actions CI
 
 ---
 
@@ -198,4 +192,3 @@ GitHub Actions runs on every push to `main`:
 **Aashish Bedi**
 - GitHub: [@AashishBedi](https://github.com/AashishBedi)
 - LinkedIn: [linkedin.com/in/aashishbedi](https://linkedin.com/in/aashishbedi)
-```
