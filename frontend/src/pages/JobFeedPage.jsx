@@ -30,8 +30,8 @@ export default function JobFeedPage() {
   useEffect(() => {
     if (isAuthenticated) {
       getMyResume()
-        .then(() => setHasResume(true))
-        .catch(() => setHasResume(false))
+          .then(() => setHasResume(true))
+          .catch(() => setHasResume(false))
     }
   }, [isAuthenticated])
 
@@ -95,98 +95,98 @@ export default function JobFeedPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900">Job Opportunities</h1>
-        <p className="text-slate-500 mt-1">
-          {searchActive ? `Results for "${skill || location}"` : 'Browse all available positions'}
-        </p>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-extrabold text-slate-900">Job Opportunities</h1>
+          <p className="text-slate-500 mt-1">
+            {searchActive ? `Results for "${skill || location}"` : 'Browse all available positions'}
+          </p>
+        </div>
 
-      {/* Search bar */}
-      <form
-        onSubmit={handleSearch}
-        className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 mb-8 flex flex-col sm:flex-row gap-3"
-      >
-        <div className="flex-1 relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
-          <input
-            type="text"
-            placeholder="Skill (e.g. React, Java)"
-            value={skill}
-            onChange={(e) => setSkill(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 text-slate-900 placeholder-slate-400 transition-all"
-          />
-        </div>
-        <div className="flex-1 relative">
-          <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
-          <input
-            type="text"
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 text-slate-900 placeholder-slate-400 transition-all"
-          />
-        </div>
-        <div className="flex gap-2">
-          <button
-            type="submit"
-            className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition-all shadow-md hover:shadow-blue-500/30 active:scale-95"
-          >
-            <SlidersHorizontal size={15} /> Search
-          </button>
-          {searchActive && (
+        {/* Search bar */}
+        <form
+            onSubmit={handleSearch}
+            className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 mb-8 flex flex-col sm:flex-row gap-3"
+        >
+          <div className="flex-1 relative">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
+            <input
+                type="text"
+                placeholder="Skill (e.g. React, Java)"
+                value={skill}
+                onChange={(e) => setSkill(e.target.value)}
+                className="w-full pl-11 pr-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 text-slate-900 placeholder-slate-400 transition-all"
+            />
+          </div>
+          <div className="flex-1 relative">
+            <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
+            <input
+                type="text"
+                placeholder="Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="w-full pl-11 pr-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 text-slate-900 placeholder-slate-400 transition-all"
+            />
+          </div>
+          <div className="flex gap-2">
             <button
-              type="button"
-              onClick={handleClear}
-              className="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-100 transition-all"
+                type="submit"
+                className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition-all shadow-md hover:shadow-blue-500/30 active:scale-95"
             >
-              Clear
+              <SlidersHorizontal size={15} /> Search
             </button>
-          )}
-        </div>
-      </form>
-
-      {/* No resume warning */}
-      {isAuthenticated && !hasResume && (
-        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
-          <span className="text-2xl">💡</span>
-          <div>
-            <p className="text-sm font-semibold text-amber-800">Upload your resume to see AI match scores</p>
-            <p className="text-xs text-amber-600 mt-0.5">
-              Get personalized match percentages on every job listing.{' '}
-              <a href="/resume" className="underline font-medium">Upload now →</a>
-            </p>
+            {searchActive && (
+                <button
+                    type="button"
+                    onClick={handleClear}
+                    className="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-100 transition-all"
+                >
+                  Clear
+                </button>
+            )}
           </div>
-        </div>
-      )}
+        </form>
 
-      {/* Jobs grid */}
-      {loading ? (
-        <LoadingSpinner text="Loading jobs…" />
-      ) : error ? (
-        <ErrorMessage message={error} onRetry={() => fetchJobs(page)} />
-      ) : jobs.length === 0 ? (
-        <EmptyState icon="🔍" title="No jobs found" description="Try adjusting your search criteria or check back later." />
-      ) : (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {jobs.map((job, i) => (
-              <div key={job.id} className="animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
-                <JobCard
-                  job={job}
-                  onApply={isAuthenticated ? handleApply : undefined}
-                  applying={applying === job.id}
-                  hasResume={hasResume}
-                  matchScore={job.matchScore}
-                />
+        {/* No resume warning */}
+        {isAuthenticated && !hasResume && (
+            <div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+              <span className="text-2xl">💡</span>
+              <div>
+                <p className="text-sm font-semibold text-amber-800">Upload your resume to see AI match scores</p>
+                <p className="text-xs text-amber-600 mt-0.5">
+                  Get personalized match percentages on every job listing.{' '}
+                  <a href="/resume" className="underline font-medium">Upload now →</a>
+                </p>
               </div>
-            ))}
-          </div>
-          <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
-        </>
-      )}
-    </div>
+            </div>
+        )}
+
+        {/* Jobs grid */}
+        {loading ? (
+            <LoadingSpinner text="Loading jobs…" />
+        ) : error ? (
+            <ErrorMessage message={error} onRetry={() => fetchJobs(page)} />
+        ) : jobs.length === 0 ? (
+            <EmptyState icon="🔍" title="No jobs found" description="Try adjusting your search criteria or check back later." />
+        ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {jobs.map((job, i) => (
+                    <div key={job.id} className="animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
+                      <JobCard
+                          job={job}
+                          onApply={isAuthenticated ? handleApply : undefined}
+                          applying={applying === job.id}
+                          hasResume={hasResume}
+                          matchScore={job.matchScore}
+                      />
+                    </div>
+                ))}
+              </div>
+              <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+            </>
+        )}
+      </div>
   )
 }

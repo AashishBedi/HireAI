@@ -34,19 +34,16 @@ public class JobService {
                 .orElseThrow(() -> new RuntimeException("Job not found"));
     }
 
-    @CacheEvict(value = {"jobs", "jobs-search"}, allEntries = true)
     public Job createJob(Job job) {
         return jobRepository.save(job);
     }
 
-    @CacheEvict(value = {"jobs", "jobs-search"}, allEntries = true)
     public Job updateJobStatus(Long id, JobStatus status) {
         Job job = getJobById(id);
         job.setStatus(status);
         return jobRepository.save(job);
     }
 
-    @CacheEvict(value = {"jobs", "jobs-search"}, allEntries = true)
     public void deleteJob(Long id) {
         jobRepository.deleteById(id);
     }

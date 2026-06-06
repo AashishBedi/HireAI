@@ -9,4 +9,4 @@ export const uploadResume = (file) => {
 }
 
 export const getMyResume = () =>
-  axiosInstance.get('/resume/my')
+    axiosInstance.get('/resume/my')

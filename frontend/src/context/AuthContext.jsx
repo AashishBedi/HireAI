@@ -58,9 +58,9 @@ export function AuthProvider({ children }) {
   const isRecruiter = user?.role === 'RECRUITER'
 
   return (
-    <AuthContext.Provider value={{ token, user, login, loginWithData, logout, isAuthenticated, isSeeker, isRecruiter }}>
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider value={{ token, user, login, loginWithData, logout, isAuthenticated, isSeeker, isRecruiter }}>
+        {children}
+      </AuthContext.Provider>
   )
 }
 

@@ -28,7 +28,7 @@ public class Resume {
     private List<String> extractedSkills;
 
     private Integer yearsOfExperience;
-    
+
     @Column(columnDefinition = "TEXT")
     private String parsedText;
 }
