@@ -1,11 +1,32 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { jwtDecode } from 'jwt-decode'
 
 const AuthContext = createContext(null)
 
+function getValidToken() {
+  const t = localStorage.getItem('token')
+  if (!t) return null
+  try {
+    const decoded = jwtDecode(t)
+    // exp is in seconds; Date.now() is in milliseconds
+    if (decoded.exp * 1000 < Date.now()) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      return null
+    }
+    return t
+  } catch {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    return null
+  }
+}
+
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem('token'))
+  const [token, setToken] = useState(() => getValidToken())
   const [user, setUser] = useState(() => {
+    // Only restore user if we have a valid token
+    if (!getValidToken()) return null
     try {
       const saved = localStorage.getItem('user')
       return saved ? JSON.parse(saved) : null

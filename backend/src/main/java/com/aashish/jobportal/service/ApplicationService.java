@@ -37,7 +37,7 @@ public class ApplicationService {
                 .map(Resume::getParsedText)
                 .orElse("");
 
-        // Get AI match score
+        // Get AI match score — failure here should not block the application
         Double matchScore = 0.0;
         List<String> missingSkills = List.of();
 
@@ -62,15 +62,12 @@ public class ApplicationService {
 
         applicationRepository.save(application);
 
-        // Send confirmation email
-        try {
-            emailService.sendApplicationConfirmation(
-                    seeker.getEmail(),
-                    seeker.getName(),
-                    job.getTitle());
-        } catch (Exception e) {
-            // Email failure should not break the application flow
-        }
+        // Email is @Async — it runs on a background thread. The try/catch here
+        // does nothing useful; error handling is inside EmailService itself.
+        emailService.sendApplicationConfirmation(
+                seeker.getEmail(),
+                seeker.getName(),
+                job.getTitle());
 
         return toResponse(application);
     }
@@ -98,16 +95,12 @@ public class ApplicationService {
         application.setStatus(status);
         applicationRepository.save(application);
 
-        // Send status update email
-        try {
-            emailService.sendStatusUpdate(
-                    application.getSeeker().getEmail(),
-                    application.getSeeker().getName(),
-                    application.getJob().getTitle(),
-                    status.name());
-        } catch (Exception e) {
-            // Email failure should not break the flow
-        }
+        // Same as above — @Async handles its own error logging
+        emailService.sendStatusUpdate(
+                application.getSeeker().getEmail(),
+                application.getSeeker().getName(),
+                application.getJob().getTitle(),
+                status.name());
 
         return toResponse(application);
     }

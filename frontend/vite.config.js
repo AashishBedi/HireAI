@@ -7,12 +7,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-      },
-    },
-  },
+  // Dev proxy removed — axiosInstance uses VITE_API_BASE_URL for the full
+  // backend URL in both dev and production. The /api prefix is already
+  // part of the backend route mapping (e.g. /api/jobs), so no proxy needed.
 })
