@@ -3,7 +3,7 @@
 > A full-stack job portal where AI matches candidates to jobs using resume analysis and semantic similarity scoring.
 
 [![Java CI](https://github.com/AashishBedi/HireAI/actions/workflows/ci.yml/badge.svg)](https://github.com/AashishBedi/HireAI/actions/workflows/ci.yml)
-
+🔗 **Live Demo:** [https://hire-ai-delta.vercel.app](https://hire-ai-delta.vercel.app)
 ---
 
 ## Overview
